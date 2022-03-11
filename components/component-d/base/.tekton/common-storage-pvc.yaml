@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    build.appstudio.openshift.io/application: my-big-application
+    build.appstudio.openshift.io/build: "true"
+    build.appstudio.openshift.io/component: component-d
+    build.appstudio.openshift.io/type: build
+    build.appstudio.openshift.io/version: "0.1"
+  creationTimestamp: null
+  name: appstudio
+  namespace: shbose
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
+  volumeMode: Filesystem
+status: {}

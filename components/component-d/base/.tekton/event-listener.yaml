@@ -1,0 +1,25 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  annotations:
+    build.appstudio.openshift.io/application: my-big-application
+    build.appstudio.openshift.io/build: "true"
+    build.appstudio.openshift.io/component: component-d
+    build.appstudio.openshift.io/type: build
+    build.appstudio.openshift.io/version: "0.1"
+  creationTimestamp: null
+  name: component-d
+  namespace: shbose
+spec:
+  namespaceSelector: {}
+  resources: {}
+  serviceAccountName: pipeline
+  triggers:
+  - bindings:
+    - kind: ClusterTriggerBinding
+      ref: github-push
+    template:
+      ref: component-d
+status:
+  configuration:
+    generatedName: ""

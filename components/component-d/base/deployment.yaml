@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: component-d
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: component-d
+    app.kubernetes.io/part-of: my-big-application
+  name: component-d
+  namespace: shbose
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: component-d
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: component-d
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio/user-workload:shbose-component-d
+        imagePullPolicy: Always
+        name: container-image
+        resources: {}
+status: {}
