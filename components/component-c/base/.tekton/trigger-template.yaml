@@ -1,0 +1,41 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  creationTimestamp: null
+  name: component-c
+  namespace: shbose
+spec:
+  params:
+  - name: git-revision
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      annotations:
+        build.appstudio.openshift.io/application: my-big-application
+        build.appstudio.openshift.io/build: "true"
+        build.appstudio.openshift.io/component: component-c
+        build.appstudio.openshift.io/type: build
+        build.appstudio.openshift.io/version: "0.1"
+      creationTimestamp: null
+      generateName: component-c-
+      namespace: shbose
+    spec:
+      params:
+      - name: git-url
+        value: https://github.com/sbose78/devfile-sample-code-with-quarkus
+      - name: output-image
+        value: quay.io/redhat-appstudio/user-workload:shbose-component-c-$(tt.params.git-revision)
+      pipelineRef:
+        bundle: quay.io/redhat-appstudio/build-templates-bundle@sha256:2205a29208fa686b47f841819f7abedb64adb93935493693892d0e18bbdbb77e
+        name: devfile-build
+      workspaces:
+      - name: workspace
+        persistentVolumeClaim:
+          claimName: appstudio
+        subPath: component-c/$(tt.params.git-revision)
+      - name: registry-auth
+        secret:
+          secretName: redhat-appstudio-registry-pull-secret
+    status: {}
+status: {}
