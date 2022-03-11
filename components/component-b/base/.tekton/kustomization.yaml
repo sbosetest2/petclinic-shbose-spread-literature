@@ -1,0 +1,5 @@
+resources:
+- build-webhook-route.yaml
+- common-storage-pvc.yaml
+- event-listener.yaml
+- trigger-template.yaml

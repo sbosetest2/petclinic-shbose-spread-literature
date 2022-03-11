@@ -1,0 +1,21 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    build.appstudio.openshift.io/application: my-big-application
+    build.appstudio.openshift.io/build: "true"
+    build.appstudio.openshift.io/component: component-b
+    build.appstudio.openshift.io/type: build
+    build.appstudio.openshift.io/version: "0.1"
+  creationTimestamp: null
+  name: elcomponent-b
+  namespace: shbose
+spec:
+  path: /
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: el-component-b
+    weight: null
+status: {}
